@@ -45,7 +45,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Metadata listener responsible for installing Web MVC JSP artifacts for the Solr search addon.
+ * Metadata listener responsible for installing Web MVC JSP artifacts for the Elasticsearch addon.
  * 
  * @author Stefan Schmidt
  * @since 1.1

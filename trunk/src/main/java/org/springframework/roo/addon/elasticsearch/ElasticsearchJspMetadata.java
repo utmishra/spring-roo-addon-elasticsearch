@@ -9,7 +9,7 @@ import org.springframework.roo.support.style.ToStringCreator;
 import org.springframework.roo.support.util.Assert;
 
 /**
- * Metadata built from {@link ElasticsearchWebSearchMetadata}. A single {@link ElasticsearchJspMetadata} represents all Solr JSPs for an associated controller.
+ * Metadata built from {@link ElasticsearchWebSearchMetadata}. A single {@link ElasticsearchJspMetadata} represents all Elasticsearch JSPs for an associated controller.
  * The metadata identifier for a {@link ElasticsearchJspMetadata} is the fully qualifier name of the controller, and the source {@link Path}
  * of the controller. This can be created using {@link #createIdentifier(JavaType, Path)}.
  * 
