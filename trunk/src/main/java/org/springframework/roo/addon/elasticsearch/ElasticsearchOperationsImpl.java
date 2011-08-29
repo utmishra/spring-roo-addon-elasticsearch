@@ -56,6 +56,7 @@ import org.w3c.dom.Element;
 public class ElasticsearchOperationsImpl implements ElasticsearchOperations {
 	
 	private static final Dependency ES = new Dependency("org.elasticsearch", "elasticsearch", "0.17.5");
+	private static final Dependency ES_ADDON = new Dependency("org.springframework.roo.addon.elasticsearch", "org.springframework.roo.addon.elasticsearch", "0.1.0.BUILD-SNAPSHOT", DependencyType.JAR, DependencyScope.PROVIDED);
 	private static final Dependency JSON_ADDON = new Dependency("org.springframework.roo","org.springframework.roo.addon.json","LATEST", DependencyType.JAR, DependencyScope.PROVIDED);
 	
 	@Reference private FileManager fileManager;
@@ -87,7 +88,7 @@ public class ElasticsearchOperationsImpl implements ElasticsearchOperations {
 		List<Dependency> dependencies = new ArrayList<Dependency>();
 		
 		// Install the dependency on the add-on jar (
-		//dependencies.add(new Dependency("org.springframework.roo.addon.elasticsearch", "org.springframework.roo.addon.elasticsearch", "0.1.0.BUILD-SNAPSHOT", DependencyType.JAR, DependencyScope.PROVIDED));
+		dependencies.add(ES_ADDON);
 		dependencies.add(ES);
 		dependencies.add(JSON_ADDON);
 		
