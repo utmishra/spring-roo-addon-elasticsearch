@@ -21,7 +21,6 @@ import org.springframework.roo.classpath.details.MemberFindingUtils;
 import org.springframework.roo.classpath.details.MethodMetadata;
 import org.springframework.roo.classpath.itd.AbstractItdMetadataProvider;
 import org.springframework.roo.classpath.itd.ItdTypeDetailsProvidingMetadataItem;
-import org.springframework.roo.classpath.persistence.PersistenceMemberLocator;
 import org.springframework.roo.classpath.scanner.MemberDetails;
 import org.springframework.roo.metadata.MetadataIdentificationUtils;
 import org.springframework.roo.model.JavaType;
@@ -38,7 +37,6 @@ import org.springframework.roo.project.Path;
 @Service
 public final class ElasticsearchMetadataProvider extends AbstractItdMetadataProvider {
 	@Reference private EntityMetadataProvider entityMetadataProvider;
-	@Reference private PersistenceMemberLocator persistenceMemberLocator;
 
 	protected void activate(ComponentContext context) {
 		metadataDependencyRegistry.registerDependency(PhysicalTypeIdentifier.getMetadataIdentiferType(), getProvidesType());
@@ -92,9 +90,7 @@ public final class ElasticsearchMetadataProvider extends AbstractItdMetadataProv
 				metadataDependencyRegistry.registerDependency(methodMetadata.getDeclaredByMetadataId(), metadataIdentificationString);
 			}
 		}
-		final MethodMetadata idAccessor = persistenceMemberLocator.getIdentifierAccessor(javaType);
-		final FieldMetadata versionField = persistenceMemberLocator.getVersionField(javaType);
-		return new ElasticsearchMetadata(metadataIdentificationString, aspectName, annotationValues, governorPhysicalTypeMetadata, idAccessor, versionField, accessorDetails, beanPlural);
+		return new ElasticsearchMetadata(metadataIdentificationString, aspectName, annotationValues, governorPhysicalTypeMetadata, entityMetadata.getIdentifierAccessor(), entityMetadata.getVersionField(), accessorDetails, beanPlural);
 	}
 	
 	protected String getLocalMidToRequest(ItdTypeDetails itdTypeDetails) {

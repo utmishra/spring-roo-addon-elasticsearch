@@ -16,8 +16,7 @@ import java.util.Set;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.springframework.roo.addon.entity.EntityMetadataProvider;
-import org.springframework.roo.addon.entity.JpaEntityMetadataProvider;
+import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.classpath.PhysicalTypeDetails;
 import org.springframework.roo.classpath.PhysicalTypeIdentifier;
 import org.springframework.roo.classpath.PhysicalTypeMetadata;
@@ -218,11 +217,12 @@ public class ElasticsearchOperationsImpl implements ElasticsearchOperations {
 	}
 	
 	public void addAll() {
-		Set<ClassOrInterfaceTypeDetails> cids = typeLocationService.findClassesOrInterfaceDetailsWithAnnotation(EntityMetadataProvider.ENTITY_ANNOTATION, JpaEntityMetadataProvider.JPA_ENTITY_ANNOTATION);
+		Set<ClassOrInterfaceTypeDetails> cids = typeLocationService.findClassesOrInterfaceDetailsWithAnnotation(new JavaType(RooEntity.class.getName()));
 		for (ClassOrInterfaceTypeDetails cid : cids) {
-			if (!Modifier.isAbstract(cid.getModifier())) {
-				addElasticsearchSearchableAnnotation(cid);
+			if (Modifier.isAbstract(cid.getModifier())) {
+				continue;
 			}
+			addElasticsearchSearchableAnnotation(cid);
 		}
 	}
 
