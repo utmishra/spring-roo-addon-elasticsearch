@@ -72,8 +72,8 @@ public final class ElasticsearchJspMetadataListener implements MetadataProvider,
 	public MetadataItem get(String metadataIdentificationString) {
 		javaType = ElasticsearchJspMetadata.getJavaType(metadataIdentificationString);
 		Path path = ElasticsearchJspMetadata.getPath(metadataIdentificationString);
-		String solrWebSearchMetadataKeyString = ElasticsearchWebSearchMetadata.createIdentifier(javaType, path);
-		ElasticsearchWebSearchMetadata webSearchMetadata = (ElasticsearchWebSearchMetadata) metadataService.get(solrWebSearchMetadataKeyString);
+		String elasticsearchWebSearchMetadataKeyString = ElasticsearchWebSearchMetadata.createIdentifier(javaType, path);
+		ElasticsearchWebSearchMetadata webSearchMetadata = (ElasticsearchWebSearchMetadata) metadataService.get(elasticsearchWebSearchMetadataKeyString);
 		if (webSearchMetadata == null || !webSearchMetadata.isValid()) {
 			return null;
 		}
@@ -100,7 +100,7 @@ public final class ElasticsearchJspMetadataListener implements MetadataProvider,
 		
 		String folderName = webScaffoldMetadata.getAnnotationValues().getPath();
 		tilesOperations.addViewDefinition(folderName, folderName + "/search", TilesOperationsImpl.DEFAULT_TEMPLATE, "/WEB-INF/views/" + webScaffoldMetadata.getAnnotationValues().getPath() + "/search.jspx");
-		menuOperations.addMenuItem(new JavaSymbolName(formbackingObject.getSimpleTypeName()), new JavaSymbolName("solr"), new JavaSymbolName(entityMetadata.getPlural()).getReadableSymbolName(), "global.menu.find", "/" + webScaffoldMetadata.getAnnotationValues().getPath() + "?search", "s:");
+		menuOperations.addMenuItem(new JavaSymbolName(formbackingObject.getSimpleTypeName()), new JavaSymbolName("elasticsearch"), new JavaSymbolName(entityMetadata.getPlural()).getReadableSymbolName(), "global.menu.find", "/" + webScaffoldMetadata.getAnnotationValues().getPath() + "?search", "s:");
 	}
 	
 	private Document getSearchDocument() {
