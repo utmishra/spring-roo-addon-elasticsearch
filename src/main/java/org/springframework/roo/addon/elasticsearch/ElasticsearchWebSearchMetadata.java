@@ -34,11 +34,11 @@ public class ElasticsearchWebSearchMetadata extends AbstractItdTypeDetailsProvid
 	private static final String PROVIDES_TYPE_STRING = ElasticsearchWebSearchMetadata.class.getName(); 
 	private static final String PROVIDES_TYPE = MetadataIdentificationUtils.create(PROVIDES_TYPE_STRING);
 
-	public ElasticsearchWebSearchMetadata(String identifier, JavaType aspectName, PhysicalTypeMetadata governorPhysicalTypeMetadata, ElasticsearchWebSearchAnnotationValues annotationValues, WebScaffoldAnnotationValues webScaffoldAnnotationValues, ElasticsearchAnnotationValues solrSearchAnnotationValues) {
+	public ElasticsearchWebSearchMetadata(String identifier, JavaType aspectName, PhysicalTypeMetadata governorPhysicalTypeMetadata, ElasticsearchWebSearchAnnotationValues annotationValues, WebScaffoldAnnotationValues webScaffoldAnnotationValues, ElasticsearchAnnotationValues elasticSearchAnnotationValues) {
 		super(identifier, aspectName, governorPhysicalTypeMetadata);
 		Assert.notNull(webScaffoldAnnotationValues, "Web scaffold annotation values required");
 		Assert.notNull(annotationValues, "Elasticsearch web searchable annotation values required");
-		Assert.notNull(solrSearchAnnotationValues, "Elasticsearch search annotation values required");
+		Assert.notNull(elasticSearchAnnotationValues, "Elasticsearch search annotation values required");
 		Assert.isTrue(isValid(identifier), "Metadata identification string '" + identifier + "' does not appear to be a valid");
 
 		if (!isValid()) {
@@ -46,10 +46,10 @@ public class ElasticsearchWebSearchMetadata extends AbstractItdTypeDetailsProvid
 		}
 		
 		if (annotationValues.getSearchMethod() != null && annotationValues.getSearchMethod().length() > 0) {
-			builder.addMethod(getSearchMethod(annotationValues, solrSearchAnnotationValues, webScaffoldAnnotationValues));
+			builder.addMethod(getSearchMethod(annotationValues, elasticSearchAnnotationValues, webScaffoldAnnotationValues));
 		}
 		if (annotationValues.getAutoCompleteMethod() != null && annotationValues.getAutoCompleteMethod().length() > 0) {
-			builder.addMethod(getAutocompleteMethod(annotationValues, solrSearchAnnotationValues, webScaffoldAnnotationValues));
+			builder.addMethod(getAutocompleteMethod(annotationValues, elasticSearchAnnotationValues, webScaffoldAnnotationValues));
 		}
 		
 		// Create a representation of the desired output ITD

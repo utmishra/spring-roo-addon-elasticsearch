@@ -24,11 +24,11 @@ import org.springframework.roo.support.util.Assert;
 @Component(immediate = true)
 @Service
 public final class ElasticsearchWebSearchMetadataProvider extends AbstractItdMetadataProvider {
-	@Reference private WebScaffoldMetadataProvider webScaffoldMetadataProvider;
+	//@Reference private WebScaffoldMetadataProvider webScaffoldMetadataProvider;
 
 	protected void activate(ComponentContext context) {
 		metadataDependencyRegistry.registerDependency(PhysicalTypeIdentifier.getMetadataIdentiferType(), getProvidesType());
-		webScaffoldMetadataProvider.addMetadataTrigger(new JavaType(RooElasticsearchWebSearchable.class.getName()));
+		//webScaffoldMetadataProvider.addMetadataTrigger(new JavaType(RooElasticsearchWebSearchable.class.getName()));
 		addMetadataTrigger(new JavaType(RooElasticsearchWebSearchable.class.getName()));	
 	}
 	
@@ -56,15 +56,15 @@ public final class ElasticsearchWebSearchMetadataProvider extends AbstractItdMet
 		JavaType targetObject = webScaffoldMetadata.getAnnotationValues().getFormBackingObject();
 		Assert.notNull(targetObject, "Could not aquire form backing object for the '" + WebScaffoldMetadata.getJavaType(webScaffoldMetadata.getId()).getFullyQualifiedTypeName() + "' controller");
 		
-		ElasticsearchMetadata solrMetadata = (ElasticsearchMetadata) metadataService.get(ElasticsearchMetadata.createIdentifier(targetObject, Path.SRC_MAIN_JAVA));
-		Assert.notNull(solrMetadata, "Could not determine ElasticsearchMetadata for type '" + targetObject.getFullyQualifiedTypeName() + "'");
+		ElasticsearchMetadata esMetadata = (ElasticsearchMetadata) metadataService.get(ElasticsearchMetadata.createIdentifier(targetObject, Path.SRC_MAIN_JAVA));
+		Assert.notNull(esMetadata, "Could not determine ElasticsearchMetadata for type '" + targetObject.getFullyQualifiedTypeName() + "'");
 
 		// Otherwise go off and create the to String metadata
-		return new ElasticsearchWebSearchMetadata(metadataIdentificationString, aspectName, governorPhysicalTypeMetadata, annotationValues, webScaffoldMetadata.getAnnotationValues(), solrMetadata.getAnnotationValues());
+		return new ElasticsearchWebSearchMetadata(metadataIdentificationString, aspectName, governorPhysicalTypeMetadata, annotationValues, webScaffoldMetadata.getAnnotationValues(), esMetadata.getAnnotationValues());
 	}
 	
 	public String getItdUniquenessFilenameSuffix() {
-		return "SolrWebSearch";
+		return "ElasticsearchWebSearch";
 	}
 
 	protected String getGovernorPhysicalTypeIdentifier(String metadataIdentificationString) {
