@@ -1,0 +1,1 @@
+Spring Roo Add-On providing elasticsearch integration
